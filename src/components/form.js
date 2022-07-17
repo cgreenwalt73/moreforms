@@ -8,12 +8,80 @@ const Form = props => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
+    const [fNameError, setFNameError] = useState('');
+    const [lNameError, setLNameError] = useState('');
+    const [emailError, setEmailError] = useState('');
+    const [passwordError, setPasswordError] = useState('');
+    const [confirmPasswordError, setConfirmPasswordError] = useState('');
+
     const createAccount = (e) => {
 
         e.preventDefault();
+    };
 
-        const newUser = { firstName, lastName, email, password, confirmPassword };
-        console.log(newUser);
+    const validateFirstName = (e) => {
+        setFirstName(e.target.value);
+        if (e.target.value.length <1) {
+            setFNameError('First name is required');
+        }
+        else if (e.target.value.length <2) {
+            setFNameError('First name must be at least 2 characters');
+        }
+        else {
+            setFNameError('');
+        }
+    };
+
+    const validateLastName = (e) => {
+        setLastName(e.target.value);
+        if (e.target.value.length <1) {
+            setLNameError('Last name is required');
+        }
+        else if (e.target.value.length <2) {
+            setLNameError('Last name must be at least 2 characters');
+        }
+        else {
+            setLNameError('');
+        }
+    };
+
+    const validateEmail = (e) => {
+        setEmail(e.target.value);
+        if (e.target.value.length <1) {
+            setEmailError('Email is required');
+        }
+        else if (e.target.value.length <5) {
+            setEmailError('Email must be at least 5 characters');
+        }
+        else {
+            setEmailError('');
+        }
+    };
+
+    const validatePassword = (e) => {
+        setPassword(e.target.value);
+        if (e.target.value.length <1) {
+            setPasswordError('Password is required');
+        }
+        else if (e.target.value.length <8) {
+            setPasswordError('Password must be at least 8 characters');
+        }
+        else {
+            setPasswordError('');
+        }
+    };
+
+    const validateConfirmPassword = (e) => {
+        setConfirmPassword(e.target.value);
+        if (e.target.value.length <1) {
+            setConfirmPasswordError('Password confirmation is required');
+        }
+        else if (e.target.value !==password) {
+            setConfirmPasswordError('Passwords must match');
+        }
+        else {
+            setConfirmPasswordError('');
+        }
     };
 
     return(
@@ -22,32 +90,57 @@ const Form = props => {
                 <div>
                     <label>
                         First Name:
-                        <input type='text' onChange={ (e) => setFirstName(e.target.value) }></input>
+                        <input type='text' onChange={ validateFirstName }></input>
                     </label>
+                    {
+                        fNameError ?
+                        <p>{ fNameError }</p> :
+                        ''
+                    }
                 </div>
                 <div>
                     <label>
                         Last Name:
-                        <input type='text' onChange={ (e) => setLastName(e.target.value) }></input>
+                        <input type='text' onChange={ validateLastName }></input>
                     </label>
+                    {
+                        lNameError ?
+                        <p>{ lNameError }</p> :
+                        ''
+                    }
                 </div>
                 <div>
                     <label>
                         Email:
-                        <input type='text' onChange={ (e) => setEmail(e.target.value) }></input>
+                        <input type='text' onChange={ validateEmail }></input>
                     </label>
+                    {
+                        emailError ?
+                        <p>{ emailError }</p> :
+                        ''
+                    }
                 </div>
                 <div>
                     <label>
                         Password:
-                        <input type='text' onChange={ (e) => setPassword(e.target.value) }></input>
+                        <input type='text' onChange={ validatePassword }></input>
                     </label>
+                    {
+                        passwordError ?
+                        <p>{ passwordError }</p> :
+                        ''
+                    }
                 </div>
                 <div>
                     <label>
                         Confirm Password:
-                        <input type='text' onChange={ (e) => setConfirmPassword(e.target.value) }></input>
+                        <input type='text' onChange={ validateConfirmPassword }></input>
                     </label>
+                    {
+                        confirmPasswordError ?
+                        <p>{ confirmPasswordError }</p> :
+                        ''
+                    }
                 </div>
                 <input type='submit' value='Create User'/>
             </form>
